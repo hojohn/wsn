@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.collect.WsnHumidityMapper2">
+
+    <resultMap id="WsnHumidityResultMap" type="com.ai.mnt.model.sensor.WsnHumidity">
+         <id column="id" property="id" />
+        <result column="ware_id" property="wareId" />
+        <result column="obj_id" property="objId" />
+        <result column="humidity_value" property="humidityValue" />
+        <result column="rate" property="rate" />
+        <result column="state" property="state" />
+        <result column="create_time" property="createTime" />
+        <result column="field" property="field" />
+       
+    </resultMap>
+
+    <sql id="WsnHumidityColumns">
+        ware_id,
+        obj_id,
+        humidity_value,
+        rate,
+        state,
+        create_time,
+        field,
+        id
+    </sql>
+     <select id="findNew" resultType="java.lang.String">
+        select
+        humidity_value
+        from wsn_humidity
+        where ware_id = #{wareId}
+        ORDER BY create_time DESC LIMIT 1
+    </select>
+ <select id="calAvg"  resultType="java.lang.Float" >
+        select
+        round(avg(humidity_value),2) as avg 
+        from wsn_humidity
+        <where>
+            <if test="wareId != null and wareId != ''">
+                ware_id = #{wareId}
+            </if>
+            <if test="bDate != null">
+                <![CDATA[and (create_time >= #{bDate})]]>
+            </if>
+            <if test="eDate != null">
+                <![CDATA[and (create_time <= #{eDate})]]>
+            </if>
+        </where>
+    </select>
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into wsn_humidity (
+        ware_id,
+        obj_id,
+        humidity_value,
+        rate,
+        state,
+        create_time,
+        field
+        )
+        values (
+        #{wareId},
+        #{objId},
+        #{humidityValue},
+        #{rate},
+        #{state},
+        #{createTime},
+        #{field}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_humidity (
+        ware_id,
+        obj_id,
+        humidity_value,
+        rate,
+        state,
+        create_time,
+        field,
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.wareId},
+            #{item.objId},
+            #{item.humidityValue},
+            #{item.rate},
+            #{item.state},
+            #{item.createTime},
+            #{item.field},
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_humidity
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_humidity
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_humidity
+        <set>
+            <if test="wareId != null">
+                ware_id = #{wareId},
+            </if>
+            <if test="objId != null">
+                obj_id = #{objId},
+            </if>
+            <if test="humidityValue != null">
+                humidity_value = #{humidityValue},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="field != null">
+                field = #{field},
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnHumidityResultMap">
+        select
+        <include refid="WsnHumidityColumns" />
+        from wsn_humidity
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="WsnHumidityResultMap">
+        select
+        <include refid="WsnHumidityColumns" />
+        from wsn_humidity
+        <where>
+           <if test="wareId != null and wareId != ''">
+                ware_id = #{wareId}
+            </if>
+            <if test="bDate != null">
+                <![CDATA[and (create_time >= #{bDate})]]>
+            </if>
+            <if test="eDate != null">
+                <![CDATA[and (create_time <= #{eDate})]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnHumidityResultMap">
+        select
+        <include refid="WsnHumidityColumns" />
+        from wsn_humidity
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

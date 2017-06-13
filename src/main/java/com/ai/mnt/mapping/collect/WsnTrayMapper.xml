@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.collect.WsnTrayMapper">
+
+    <resultMap id="WsnTrayResultMap" type="com.ai.mnt.model.collect.WsnTray">
+        <id column="ware_id" property="wareId" />
+        <result column="ware_time" property="wareTime" />
+    </resultMap>
+
+    <sql id="WsnTrayColumns">
+        ware_id,
+        ware_time
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="wareId">
+        insert into wsn_tray (
+        ware_time,
+        ware_id
+        )
+        values (
+        #{wareTime},
+        #{wareId}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_tray (
+        ware_time
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.wareTime}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_tray
+        where
+        ware_id = #{wareId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_tray
+        where ware_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_tray
+        <set>
+            <if test="wareTime != null">
+                ware_time = #{wareTime}
+            </if>
+        </set>
+        where
+        ware_id = #{wareId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnTrayResultMap">
+        select
+        <include refid="WsnTrayColumns" />
+        from wsn_tray
+        where ware_id = #{wareId}
+    </select>
+
+    <select id="findList" resultMap="WsnTrayResultMap">
+        select
+        <include refid="WsnTrayColumns" />
+        from wsn_tray
+        <where>
+            <if test="wareId != null and wareId != ''">
+                ware_id = #{wareId}
+            </if>
+            <if test="wareTime != null and wareTime != ''">
+                and ware_time = #{wareTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnTrayResultMap">
+        select
+        <include refid="WsnTrayColumns" />
+        from wsn_tray
+    </select>
+    
+ 
+    
+</mapper>

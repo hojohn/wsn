@@ -1,0 +1,128 @@
+package com.ai.mnt.model.collect;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @Title: WsnCollectSts 
+ * @Description: WsnCollectSts Model
+ * @Author: Auto Generate.
+ * @Date: 2017-3-10
+ */
+public class WsnCollectSts implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
+    /***/
+    private Integer id;
+
+    /**wsn_dev数据库状态*/
+    private Integer wsnSts;
+
+    /**RFID数据库状态*/
+    private Integer rfidSts;
+
+    /**移动节点1*/
+    private Integer mn1Sts;
+
+    /**移动节点2*/
+    private Integer mn2Sts;
+
+    /**移动节点3*/
+    private Integer mn3Sts;
+
+    /**移动节点4*/
+    private Integer mn4Sts;
+
+    /**移动节点5*/
+    private Integer mn5Sts;
+
+    /**移动节点6*/
+    private Integer mn6Sts;
+
+    /**备用*/
+    private Integer status;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getWsnSts() {
+        return wsnSts;
+    }
+
+    public void setWsnSts(Integer wsnSts) {
+        this.wsnSts = wsnSts;
+    }
+
+    public Integer getRfidSts() {
+        return rfidSts;
+    }
+
+    public void setRfidSts(Integer rfidSts) {
+        this.rfidSts = rfidSts;
+    }
+
+    public Integer getMn1Sts() {
+        return mn1Sts;
+    }
+
+    public void setMn1Sts(Integer mn1Sts) {
+        this.mn1Sts = mn1Sts;
+    }
+
+    public Integer getMn2Sts() {
+        return mn2Sts;
+    }
+
+    public void setMn2Sts(Integer mn2Sts) {
+        this.mn2Sts = mn2Sts;
+    }
+
+    public Integer getMn3Sts() {
+        return mn3Sts;
+    }
+
+    public void setMn3Sts(Integer mn3Sts) {
+        this.mn3Sts = mn3Sts;
+    }
+
+    public Integer getMn4Sts() {
+        return mn4Sts;
+    }
+
+    public void setMn4Sts(Integer mn4Sts) {
+        this.mn4Sts = mn4Sts;
+    }
+
+    public Integer getMn5Sts() {
+        return mn5Sts;
+    }
+
+    public void setMn5Sts(Integer mn5Sts) {
+        this.mn5Sts = mn5Sts;
+    }
+
+    public Integer getMn6Sts() {
+        return mn6Sts;
+    }
+
+    public void setMn6Sts(Integer mn6Sts) {
+        this.mn6Sts = mn6Sts;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+
+}

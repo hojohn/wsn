@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.device.WsnGetewayMapper">
+
+    <resultMap id="WsnGetewayResultMap" type="com.ai.mnt.model.device.WsnGeteway">
+        <id column="gateway_id" property="gatewayId" />
+        <result column="gateway_name" property="gatewayName" />
+        <result column="gateway_ip" property="gatewayIp" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="WsnGetewayColumns">
+        gateway_id,
+        gateway_name,
+        gateway_ip,
+        remark
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="gatewayId">
+        insert into wsn_geteway (
+        gateway_name,
+        gateway_ip,
+        remark
+        )
+        values (
+        #{gatewayName},
+        #{gatewayIp},
+        #{remark}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_geteway (
+        gateway_name,
+        gateway_ip,
+        remark
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.gatewayName},
+            #{item.gatewayIp},
+            #{item.remark}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_geteway
+        where
+        gateway_id = #{gatewayId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_geteway
+        where gateway_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_geteway
+        <set>
+            <if test="gatewayName != null">
+                gateway_name = #{gatewayName},
+            </if>
+            <if test="gatewayIp != null">
+                gateway_ip = #{gatewayIp},
+            </if>
+            <if test="remark != null">
+                remark = #{remark}
+            </if>
+        </set>
+        where
+        gateway_id = #{gatewayId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnGetewayResultMap">
+        select
+        <include refid="WsnGetewayColumns" />
+        from wsn_geteway
+        where gateway_id = #{gatewayId}
+    </select>
+
+    <select id="findList" resultMap="WsnGetewayResultMap">
+        select
+        <include refid="WsnGetewayColumns" />
+        from wsn_geteway
+        <where>
+            <if test="gatewayId != null">
+                gateway_id = #{gatewayId}
+            </if>
+            <if test="gatewayName != null and gatewayName != ''">
+                and gateway_name = #{gatewayName}
+            </if>
+            <if test="gatewayIp != null and gatewayIp != ''">
+                and gateway_ip = #{gatewayIp}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnGetewayResultMap">
+        select
+        <include refid="WsnGetewayColumns" />
+        from wsn_geteway
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

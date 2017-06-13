@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.bracelet.WsnBraceletInfoMapper">
+
+    <resultMap id="WsnBraceletInfoResultMap" type="com.ai.mnt.model.bracelet.WsnBraceletInfo">
+        <id column="bware_id" property="bwareId" />
+        <result column="type_id" property="typeId" />
+        <result column="rfid_id" property="rfidId" />
+        <result column="employee_id" property="employeeId" />
+        <result column="update_time" property="updateTime" />
+        <result column="obj_id" property="objId" />
+        <id column="sensor_name" property="sensorName" />
+        <result column="ware_name" property="wareName" />
+        <result column="ware_info" property="wareInfo" />
+        <result column="state" property="state" />
+        <result column="net_ip" property="netIp" />
+        <result column="info_one" property="infoOne" />
+        <result column="sample_data" property="sampleData" />
+        <result column="alrm_data" property="alrmData" />
+        <result column="metric_data" property="metricData" />
+        <result column="remark1" property="remark1" />
+        <result column="remark2" property="remark2" />
+    </resultMap>
+
+    <sql id="WsnBraceletInfoColumns">
+        bware_id,
+        type_id,
+        rfid_id,
+        employee_id,
+        update_time,
+        obj_id,
+        sensor_name,
+        ware_name,
+        ware_info,
+        state,
+        net_ip,
+        info_one,
+        sample_data,
+        alrm_data,
+        metric_data,
+        remark1,
+        remark2
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="bwareId">
+        insert into wsn_bracelet_info (
+        type_id,
+        rfid_id,
+        employee_id,
+        update_time,
+        obj_id,
+        ware_name,
+        ware_info,
+        state,
+        net_ip,
+        info_one,
+        sample_data,
+        alrm_data,
+        metric_data,
+        remark1,
+        remark2
+        )
+        values (
+        #{typeId},
+        #{rfidId},
+        #{employeeId},
+        #{updateTime},
+        #{objId},
+        #{wareName},
+        #{wareInfo},
+        #{state},
+        #{netIp},
+        #{infoOne},
+        #{sampleData},
+        #{alrmData},
+        #{metricData},
+        #{remark1},
+        #{remark2}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_bracelet_info (
+        type_id,
+        rfid_id,
+        employee_id,
+        update_time,
+        obj_id,
+        ware_name,
+        ware_info,
+        state,
+        net_ip,
+        info_one,
+        sample_data,
+        alrm_data,
+        metric_data,
+        remark1,
+        remark2
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.typeId},
+            #{item.rfidId},
+            #{item.employeeId},
+            #{item.updateTime},
+            #{item.objId},
+            #{item.wareName},
+            #{item.wareInfo},
+            #{item.state},
+            #{item.netIp},
+            #{item.infoOne},
+            #{item.sampleData},
+            #{item.alrmData},
+            #{item.metricData},
+            #{item.remark1},
+            #{item.remark2}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_bracelet_info
+        where
+        bware_id = #{bwareId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_bracelet_info
+        where bware_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_bracelet_info
+        <set>
+            <if test="typeId != null">
+                type_id = #{typeId},
+            </if>
+            <if test="rfidId != null">
+                rfid_id = #{rfidId},
+            </if>
+            <if test="employeeId != null">
+                employee_id = #{employeeId},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="objId != null">
+                obj_id = #{objId},
+            </if>
+            <if test="wareName != null">
+                ware_name = #{wareName},
+            </if>
+            <if test="wareInfo != null">
+                ware_info = #{wareInfo},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="netIp != null">
+                net_ip = #{netIp},
+            </if>
+            <if test="infoOne != null">
+                info_one = #{infoOne},
+            </if>
+            <if test="sampleData != null">
+                sample_data = #{sampleData},
+            </if>
+            <if test="alrmData != null">
+                alrm_data = #{alrmData},
+            </if>
+            <if test="metricData != null">
+                metric_data = #{metricData},
+            </if>
+            <if test="remark1 != null">
+                remark1 = #{remark1},
+            </if>
+            <if test="remark2 != null">
+                remark2 = #{remark2}
+            </if>
+        </set>
+        where
+        bware_id = #{bwareId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnBraceletInfoResultMap">
+        select
+        <include refid="WsnBraceletInfoColumns" />
+        from wsn_bracelet_info
+        where bware_id = #{bwareId}
+    </select>
+
+    <select id="findList" resultMap="WsnBraceletInfoResultMap">
+        select
+        <include refid="WsnBraceletInfoColumns" />
+        from wsn_bracelet_info
+        <where>
+            <if test="bwareId != null and bwareId != ''">
+                bware_id = #{bwareId}
+            </if>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="rfidId != null">
+                and rfid_id = #{rfidId}
+            </if>
+            <if test="employeeId != null and employeeId != ''">
+                and employee_id = #{employeeId}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="objId != null and objId != ''">
+                and obj_id = #{objId}
+            </if>
+            <if test="sensorName != null and sensorName != ''">
+                and sensor_name = #{sensorName}
+            </if>
+            <if test="wareName != null and wareName != ''">
+                and ware_name = #{wareName}
+            </if>
+            <if test="wareInfo != null and wareInfo != ''">
+                and ware_info = #{wareInfo}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="netIp != null and netIp != ''">
+                and net_ip = #{netIp}
+            </if>
+            <if test="infoOne != null and infoOne != ''">
+                and info_one = #{infoOne}
+            </if>
+            <if test="sampleData != null and sampleData != ''">
+                and sample_data = #{sampleData}
+            </if>
+            <if test="alrmData != null and alrmData != ''">
+                and alrm_data = #{alrmData}
+            </if>
+            <if test="metricData != null and metricData != ''">
+                and metric_data = #{metricData}
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                and remark1 = #{remark1}
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                and remark2 = #{remark2}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnBraceletInfoResultMap">
+        select
+        <include refid="WsnBraceletInfoColumns" />
+        from wsn_bracelet_info
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

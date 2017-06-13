@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.collect.WsnCarbondioxideMapper2">
+
+    <resultMap id="WsnCarbondioxideResultMap" type="com.ai.mnt.model.sensor.WsnCarbondioxide">
+       <id column="id" property="id" />
+        <result column="ware_id" property="wareId" />
+        <result column="obj_id" property="objId" />
+        <result column="carbondioxide_value" property="carbondioxideValue" />
+        <result column="rate" property="rate" />
+        <result column="state" property="state" />
+        <result column="create_time" property="createTime" />
+        <result column="field" property="field" />
+        
+    </resultMap>
+
+    <sql id="WsnCarbondioxideColumns">
+        ware_id,
+        obj_id,
+        carbondioxide_value,
+        rate,
+        state,
+        create_time,
+        field,
+        id
+    </sql>
+     <select id="findNew" resultType="java.lang.String">
+        select
+        carbondioxide_value
+        from wsn_carbondioxide
+        where ware_id = #{wareId}
+        ORDER BY create_time DESC LIMIT 1
+    </select>
+ <select id="calAvg"  resultType="java.lang.Float" >
+        select
+        round(avg(carbondioxide_value),2) as avg 
+        from wsn_carbondioxide
+        <where>
+            <if test="wareId != null and wareId != ''">
+                ware_id = #{wareId}
+            </if>
+            <if test="bDate != null">
+                <![CDATA[and (create_time >= #{bDate})]]>
+            </if>
+            <if test="eDate != null">
+                <![CDATA[and (create_time <= #{eDate})]]>
+            </if>
+        </where>
+    </select>
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into wsn_carbondioxide (
+        ware_id,
+        obj_id,
+        carbondioxide_value,
+        rate,
+        state,
+        create_time,
+        field
+        )
+        values (
+        #{wareId},
+        #{objId},
+        #{carbondioxideValue},
+        #{rate},
+        #{state},
+        #{createTime},
+        #{field}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_carbondioxide (
+        ware_id,
+        obj_id,
+        carbondioxide_value,
+        rate,
+        state,
+        create_time,
+        field,
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.wareId},
+            #{item.objId},
+            #{item.carbondioxideValue},
+            #{item.rate},
+            #{item.state},
+            #{item.createTime},
+            #{item.field},
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_carbondioxide
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_carbondioxide
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_carbondioxide
+        <set>
+            <if test="wareId != null">
+                ware_id = #{wareId},
+            </if>
+            <if test="objId != null">
+                obj_id = #{objId},
+            </if>
+            <if test="carbondioxideValue != null">
+                carbondioxide_value = #{carbondioxideValue},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="field != null">
+                field = #{field},
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnCarbondioxideResultMap">
+        select
+        <include refid="WsnCarbondioxideColumns" />
+        from wsn_carbondioxide
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="WsnCarbondioxideResultMap">
+        select
+        <include refid="WsnCarbondioxideColumns" />
+        from wsn_carbondioxide
+        <where>
+           <if test="wareId != null and wareId != ''">
+                ware_id = #{wareId}
+            </if>
+            <if test="bDate != null">
+                <![CDATA[and (create_time >= #{bDate})]]>
+            </if>
+            <if test="eDate != null">
+                <![CDATA[and (create_time <= #{eDate})]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnCarbondioxideResultMap">
+        select
+        <include refid="WsnCarbondioxideColumns" />
+        from wsn_carbondioxide
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

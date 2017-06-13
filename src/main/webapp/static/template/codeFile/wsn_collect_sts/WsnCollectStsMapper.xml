@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.collect.WsnCollectStsMapper">
+
+    <resultMap id="WsnCollectStsResultMap" type="com.ai.mnt.model.collect.WsnCollectSts">
+        <id column="id" property="id" />
+        <result column="wsn_sts" property="wsnSts" />
+        <result column="rfid_sts" property="rfidSts" />
+        <result column="mn1_sts" property="mn1Sts" />
+        <result column="mn2_sts" property="mn2Sts" />
+        <result column="mn3_sts" property="mn3Sts" />
+        <result column="mn4_sts" property="mn4Sts" />
+        <result column="mn5_sts" property="mn5Sts" />
+        <result column="mn6_sts" property="mn6Sts" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <sql id="WsnCollectStsColumns">
+        id,
+        wsn_sts,
+        rfid_sts,
+        mn1_sts,
+        mn2_sts,
+        mn3_sts,
+        mn4_sts,
+        mn5_sts,
+        mn6_sts,
+        status
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into wsn_collect_sts (
+        wsn_sts,
+        rfid_sts,
+        mn1_sts,
+        mn2_sts,
+        mn3_sts,
+        mn4_sts,
+        mn5_sts,
+        mn6_sts,
+        status
+        )
+        values (
+        #{wsnSts},
+        #{rfidSts},
+        #{mn1Sts},
+        #{mn2Sts},
+        #{mn3Sts},
+        #{mn4Sts},
+        #{mn5Sts},
+        #{mn6Sts},
+        #{status}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_collect_sts (
+        wsn_sts,
+        rfid_sts,
+        mn1_sts,
+        mn2_sts,
+        mn3_sts,
+        mn4_sts,
+        mn5_sts,
+        mn6_sts,
+        status
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.wsnSts},
+            #{item.rfidSts},
+            #{item.mn1Sts},
+            #{item.mn2Sts},
+            #{item.mn3Sts},
+            #{item.mn4Sts},
+            #{item.mn5Sts},
+            #{item.mn6Sts},
+            #{item.status}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_collect_sts
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_collect_sts
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_collect_sts
+        <set>
+            <if test="wsnSts != null">
+                wsn_sts = #{wsnSts},
+            </if>
+            <if test="rfidSts != null">
+                rfid_sts = #{rfidSts},
+            </if>
+            <if test="mn1Sts != null">
+                mn1_sts = #{mn1Sts},
+            </if>
+            <if test="mn2Sts != null">
+                mn2_sts = #{mn2Sts},
+            </if>
+            <if test="mn3Sts != null">
+                mn3_sts = #{mn3Sts},
+            </if>
+            <if test="mn4Sts != null">
+                mn4_sts = #{mn4Sts},
+            </if>
+            <if test="mn5Sts != null">
+                mn5_sts = #{mn5Sts},
+            </if>
+            <if test="mn6Sts != null">
+                mn6_sts = #{mn6Sts},
+            </if>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnCollectStsResultMap">
+        select
+        <include refid="WsnCollectStsColumns" />
+        from wsn_collect_sts
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="WsnCollectStsResultMap">
+        select
+        <include refid="WsnCollectStsColumns" />
+        from wsn_collect_sts
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="wsnSts != null">
+                and wsn_sts = #{wsnSts}
+            </if>
+            <if test="rfidSts != null">
+                and rfid_sts = #{rfidSts}
+            </if>
+            <if test="mn1Sts != null">
+                and mn1_sts = #{mn1Sts}
+            </if>
+            <if test="mn2Sts != null">
+                and mn2_sts = #{mn2Sts}
+            </if>
+            <if test="mn3Sts != null">
+                and mn3_sts = #{mn3Sts}
+            </if>
+            <if test="mn4Sts != null">
+                and mn4_sts = #{mn4Sts}
+            </if>
+            <if test="mn5Sts != null">
+                and mn5_sts = #{mn5Sts}
+            </if>
+            <if test="mn6Sts != null">
+                and mn6_sts = #{mn6Sts}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnCollectStsResultMap">
+        select
+        <include refid="WsnCollectStsColumns" />
+        from wsn_collect_sts
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> 
+    
+</mapper>

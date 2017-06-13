@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.device.WsnSensorMapper">
+
+    <resultMap id="WsnSensorResultMap" type="com.ai.mnt.model.device.WsnSensor">
+        <id column="id" property="id" />
+        <result column="temperature_id" property="temperatureId" />
+        <result column="humidity_id" property="humidityId" />
+        <result column="dust_id" property="dustId" />
+        <result column="noise_id" property="noiseId" />
+        <result column="temperature" property="temperature" />
+        <result column="humidity" property="humidity" />
+        <result column="dust" property="dust" />
+        <result column="noise" property="noise" />
+        <result column="create_time" property="createTime" />
+        <result column="rate" property="rate" />
+    </resultMap>
+
+    <sql id="WsnSensorColumns">
+        id,
+        temperature_id,
+        humidity_id,
+        dust_id,
+        noise_id,
+        temperature,
+        humidity,
+        dust,
+        noise,
+        create_time,
+        rate
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into wsn_sensor (
+        temperature_id,
+        humidity_id,
+        dust_id,
+        noise_id,
+        temperature,
+        humidity,
+        dust,
+        noise,
+        create_time,
+        rate
+        )
+        values (
+        #{temperatureId},
+        #{humidityId},
+        #{dustId},
+        #{noiseId},
+        #{temperature},
+        #{humidity},
+        #{dust},
+        #{noise},
+        #{createTime},
+        #{rate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_sensor (
+        temperature_id,
+        humidity_id,
+        dust_id,
+        noise_id,
+        temperature,
+        humidity,
+        dust,
+        noise,
+        create_time,
+        rate
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.temperatureId},
+            #{item.humidityId},
+            #{item.dustId},
+            #{item.noiseId},
+            #{item.temperature},
+            #{item.humidity},
+            #{item.dust},
+            #{item.noise},
+            #{item.createTime},
+            #{item.rate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_sensor
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_sensor
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_sensor
+        <set>
+            <if test="temperatureId != null">
+                temperature_id = #{temperatureId},
+            </if>
+            <if test="humidityId != null">
+                humidity_id = #{humidityId},
+            </if>
+            <if test="dustId != null">
+                dust_id = #{dustId},
+            </if>
+            <if test="noiseId != null">
+                noise_id = #{noiseId},
+            </if>
+            <if test="temperature != null">
+                temperature = #{temperature},
+            </if>
+            <if test="humidity != null">
+                humidity = #{humidity},
+            </if>
+            <if test="dust != null">
+                dust = #{dust},
+            </if>
+            <if test="noise != null">
+                noise = #{noise},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="rate != null">
+                rate = #{rate}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnSensorResultMap">
+        select
+        <include refid="WsnSensorColumns" />
+        from wsn_sensor
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="WsnSensorResultMap">
+        select
+        <include refid="WsnSensorColumns" />
+        from wsn_sensor
+        <where>
+        	<if test="beginDate != null">
+                <![CDATA[and (create_time >= #{beginDate})]]>
+            </if>
+            <if test="endDate != null">
+                <![CDATA[and (create_time <= #{endDate})]]>
+            </if>
+        </where>
+    </select>
+    
+    <select id="calAvg"  resultType="java.lang.Float" >
+        select
+        round(avg(humidity),2) as avg 
+        from wsn_sensor
+        <where>
+            <if test="beginDate != null">
+                <![CDATA[and (create_time >= #{beginDate})]]>
+            </if>
+            <if test="endDate != null">
+                <![CDATA[and (create_time <= #{endDate})]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnSensorResultMap">
+        select
+        <include refid="WsnSensorColumns" />
+        from wsn_sensor
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

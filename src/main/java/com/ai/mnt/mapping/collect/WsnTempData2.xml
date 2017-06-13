@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.collect.WsnTempDataMapper2">
+
+    <resultMap id="WsnTempDataResultMap" type="com.ai.mnt.model.sensor.WsnTempData">
+        <id column="id" property="id" />
+        <result column="ware_id" property="wareId" />
+        <result column="obj_id" property="objId" />
+        <result column="temperature_value" property="temperatureValue" />
+        <result column="rate" property="rate" />
+        <result column="state" property="state" />
+        <result column="create_time" property="createTime" />
+        <result column="field" property="field" />
+    </resultMap>
+
+    <sql id="WsnTempDataColumns">
+        ware_id,
+        obj_id,
+        temperature_value,
+        rate,
+        state,
+        create_time,
+        field,
+        id
+    </sql>
+    
+    <select id="findAll" resultMap="WsnTempDataResultMap">
+        select
+        <include refid="WsnTempDataColumns" />
+        from wsn_temp_data
+    </select>
+    
+    <select id="findNewDataById" resultType="String">
+        select
+        temperature_value
+        from wsn_temp_data
+         <where>
+            <if test="wareId !=null">
+                ware_id = #{wareId}
+            </if>
+        </where>
+    </select>
+    
+    <select id="findByWareId" resultMap="WsnTempDataResultMap">
+        select
+        <include refid="WsnTempDataColumns" />
+        from wsn_temp_data
+        <where>
+        	<if test="wareId !=null">
+        		ware_id = #{wareId}
+        	</if>
+        </where>
+    </select>
+ 
+     <update id="updateByPrimaryKey">
+        update wsn_temp_data
+        <set>
+           
+            <if test="objId != null">
+                obj_id = #{objId},
+            </if>
+            <if test="temperatureValue != null">
+                temperature_value = #{temperatureValue},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="field != null">
+                field = #{field},
+            </if>
+         
+            
+        </set>
+        where
+        ware_id = #{wareId}
+    </update>
+    
+    <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+    
+</mapper>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.device.WsnEmpRfidMapper">
+
+    <resultMap id="WsnEmpRfidResultMap" type="com.ai.mnt.model.device.WsnEmpRfid">
+        <id column="rf_emp_id" property="rfEmpId" />
+        <result column="rfid_id" property="rfidId" />
+        <result column="person_id" property="personId" />
+    </resultMap>
+
+    <sql id="WsnEmpRfidColumns">
+        rf_emp_id,
+        rfid_id,
+        person_id
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="rfEmpId">
+        insert into wsn_emp_rfid (
+        rfid_id,
+        person_id
+        )
+        values (
+        #{rfidId},
+        #{personId}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_emp_rfid (
+        rfid_id,
+        person_id
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.rfidId},
+            #{item.personId}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_emp_rfid
+        where
+        rf_emp_id = #{rfEmpId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_emp_rfid
+        where rf_emp_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_emp_rfid
+        <set>
+            <if test="rfidId != null">
+                rfid_id = #{rfidId},
+            </if>
+            <if test="personId != null">
+                person_id = #{personId}
+            </if>
+        </set>
+        where
+        rf_emp_id = #{rfEmpId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnEmpRfidResultMap">
+        select
+        <include refid="WsnEmpRfidColumns" />
+        from wsn_emp_rfid
+        where rf_emp_id = #{rfEmpId}
+    </select>
+
+    <select id="findList" resultMap="WsnEmpRfidResultMap">
+        select
+        <include refid="WsnEmpRfidColumns" />
+        from wsn_emp_rfid
+        <where>
+            <if test="rfEmpId != null">
+                rf_emp_id = #{rfEmpId}
+            </if>
+            <if test="rfidId != null">
+                and rfid_id = #{rfidId}
+            </if>
+            <if test="personId != null">
+                and person_id = #{personId}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnEmpRfidResultMap">
+        select
+        <include refid="WsnEmpRfidColumns" />
+        from wsn_emp_rfid
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

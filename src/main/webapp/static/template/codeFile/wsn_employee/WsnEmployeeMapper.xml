@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.employee.WsnEmployeeMapper">
+
+    <resultMap id="WsnEmployeeResultMap" type="com.ai.mnt.model.employee.WsnEmployee">
+        <id column="person_id" property="personId" />
+        <result column="employee_name" property="employeeName" />
+        <result column="employee_age" property="employeeAge" />
+        <result column="employee_birthday" property="employeeBirthday" />
+        <result column="employee_number" property="employeeNumber" />
+        <result column="employee_dept" property="employeeDept" />
+        <result column="employee_gender" property="employeeGender" />
+        <result column="idcard" property="idcard" />
+        <result column="phone_number" property="phoneNumber" />
+        <result column="first_workdate" property="firstWorkdate" />
+        <result column="certificate_category" property="certificateCategory" />
+        <result column="employee_status" property="employeeStatus" />
+        <result column="remark" property="remark" />
+        <result column="delete_flag" property="deleteFlag" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="WsnEmployeeColumns">
+        person_id,
+        employee_name,
+        employee_age,
+        employee_birthday,
+        employee_number,
+        employee_dept,
+        employee_gender,
+        idcard,
+        phone_number,
+        first_workdate,
+        certificate_category,
+        employee_status,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="personId">
+        insert into wsn_employee (
+        employee_name,
+        employee_age,
+        employee_birthday,
+        employee_number,
+        employee_dept,
+        employee_gender,
+        idcard,
+        phone_number,
+        first_workdate,
+        certificate_category,
+        employee_status,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{employeeName},
+        #{employeeAge},
+        #{employeeBirthday},
+        #{employeeNumber},
+        #{employeeDept},
+        #{employeeGender},
+        #{idcard},
+        #{phoneNumber},
+        #{firstWorkdate},
+        #{certificateCategory},
+        #{employeeStatus},
+        #{remark},
+        #{deleteFlag},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_employee (
+        employee_name,
+        employee_age,
+        employee_birthday,
+        employee_number,
+        employee_dept,
+        employee_gender,
+        idcard,
+        phone_number,
+        first_workdate,
+        certificate_category,
+        employee_status,
+        remark,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.employeeName},
+            #{item.employeeAge},
+            #{item.employeeBirthday},
+            #{item.employeeNumber},
+            #{item.employeeDept},
+            #{item.employeeGender},
+            #{item.idcard},
+            #{item.phoneNumber},
+            #{item.firstWorkdate},
+            #{item.certificateCategory},
+            #{item.employeeStatus},
+            #{item.remark},
+            #{item.deleteFlag},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_employee
+        where
+        person_id = #{personId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_employee
+        where person_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_employee
+        <set>
+            <if test="employeeName != null">
+                employee_name = #{employeeName},
+            </if>
+            <if test="employeeAge != null">
+                employee_age = #{employeeAge},
+            </if>
+            <if test="employeeBirthday != null">
+                employee_birthday = #{employeeBirthday},
+            </if>
+            <if test="employeeNumber != null">
+                employee_number = #{employeeNumber},
+            </if>
+            <if test="employeeDept != null">
+                employee_dept = #{employeeDept},
+            </if>
+            <if test="employeeGender != null">
+                employee_gender = #{employeeGender},
+            </if>
+            <if test="idcard != null">
+                idcard = #{idcard},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber},
+            </if>
+            <if test="firstWorkdate != null">
+                first_workdate = #{firstWorkdate},
+            </if>
+            <if test="certificateCategory != null">
+                certificate_category = #{certificateCategory},
+            </if>
+            <if test="employeeStatus != null">
+                employee_status = #{employeeStatus},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        person_id = #{personId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnEmployeeResultMap">
+        select
+        <include refid="WsnEmployeeColumns" />
+        from wsn_employee
+        where person_id = #{personId}
+    </select>
+
+    <select id="findList" resultMap="WsnEmployeeResultMap">
+        select
+        <include refid="WsnEmployeeColumns" />
+        from wsn_employee
+        <where>
+            <if test="personId != null">
+                person_id = #{personId}
+            </if>
+            <if test="employeeName != null and employeeName != ''">
+                and employee_name = #{employeeName}
+            </if>
+            <if test="employeeAge != null">
+                and employee_age = #{employeeAge}
+            </if>
+            <if test="employeeBirthday != null">
+                and employee_birthday = #{employeeBirthday}
+            </if>
+            <if test="employeeNumber != null and employeeNumber != ''">
+                and employee_number = #{employeeNumber}
+            </if>
+            <if test="employeeDept != null and employeeDept != ''">
+                and employee_dept = #{employeeDept}
+            </if>
+            <if test="employeeGender != null and employeeGender != ''">
+                and employee_gender = #{employeeGender}
+            </if>
+            <if test="idcard != null and idcard != ''">
+                and idcard = #{idcard}
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                and phone_number = #{phoneNumber}
+            </if>
+            <if test="firstWorkdate != null">
+                and first_workdate = #{firstWorkdate}
+            </if>
+            <if test="certificateCategory != null and certificateCategory != ''">
+                and certificate_category = #{certificateCategory}
+            </if>
+            <if test="employeeStatus != null and employeeStatus != ''">
+                and employee_status = #{employeeStatus}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnEmployeeResultMap">
+        select
+        <include refid="WsnEmployeeColumns" />
+        from wsn_employee
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

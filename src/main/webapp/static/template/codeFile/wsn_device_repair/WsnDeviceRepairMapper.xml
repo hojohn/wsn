@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.device.WsnDeviceRepairMapper">
+
+    <resultMap id="WsnDeviceRepairResultMap" type="com.ai.mnt.model.device.WsnDeviceRepair">
+        <id column="repair_id" property="repairId" />
+        <result column="device_rfid" property="deviceRfid" />
+        <result column="repair_info" property="repairInfo" />
+        <result column="repair_time" property="repairTime" />
+        <result column="repair_person" property="repairPerson" />
+        <result column="delete_flag" property="deleteFlag" />
+        <result column="creator" property="creator" />
+        <result column="create_date" property="createDate" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="WsnDeviceRepairColumns">
+        repair_id,
+        device_rfid,
+        repair_info,
+        repair_time,
+        repair_person,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="repairId">
+        insert into wsn_device_repair (
+        device_rfid,
+        repair_info,
+        repair_time,
+        repair_person,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values (
+        #{deviceRfid},
+        #{repairInfo},
+        #{repairTime},
+        #{repairPerson},
+        #{deleteFlag},
+        #{creator},
+        #{createDate},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_device_repair (
+        device_rfid,
+        repair_info,
+        repair_time,
+        repair_person,
+        delete_flag,
+        creator,
+        create_date,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.deviceRfid},
+            #{item.repairInfo},
+            #{item.repairTime},
+            #{item.repairPerson},
+            #{item.deleteFlag},
+            #{item.creator},
+            #{item.createDate},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_device_repair
+        where
+        repair_id = #{repairId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_device_repair
+        where repair_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_device_repair
+        <set>
+            <if test="deviceRfid != null">
+                device_rfid = #{deviceRfid},
+            </if>
+            <if test="repairInfo != null">
+                repair_info = #{repairInfo},
+            </if>
+            <if test="repairTime != null">
+                repair_time = #{repairTime},
+            </if>
+            <if test="repairPerson != null">
+                repair_person = #{repairPerson},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        repair_id = #{repairId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnDeviceRepairResultMap">
+        select
+        <include refid="WsnDeviceRepairColumns" />
+        from wsn_device_repair
+        where repair_id = #{repairId}
+    </select>
+
+    <select id="findList" resultMap="WsnDeviceRepairResultMap">
+        select
+        <include refid="WsnDeviceRepairColumns" />
+        from wsn_device_repair
+        <where>
+            <if test="repairId != null">
+                repair_id = #{repairId}
+            </if>
+            <if test="deviceRfid != null">
+                and device_rfid = #{deviceRfid}
+            </if>
+            <if test="repairInfo != null and repairInfo != ''">
+                and repair_info = #{repairInfo}
+            </if>
+            <if test="repairTime != null">
+                and repair_time = #{repairTime}
+            </if>
+            <if test="repairPerson != null and repairPerson != ''">
+                and repair_person = #{repairPerson}
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnDeviceRepairResultMap">
+        select
+        <include refid="WsnDeviceRepairColumns" />
+        from wsn_device_repair
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

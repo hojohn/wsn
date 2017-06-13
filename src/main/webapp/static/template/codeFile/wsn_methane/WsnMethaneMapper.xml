@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.sensor.WsnMethaneMapper">
+
+    <resultMap id="WsnMethaneResultMap" type="com.ai.mnt.model.sensor.WsnMethane">
+        <result column="ware_id" property="wareId" />
+        <result column="obj_id" property="objId" />
+        <result column="methane_value" property="methaneValue" />
+        <result column="rate" property="rate" />
+        <result column="state" property="state" />
+        <result column="create_time" property="createTime" />
+        <result column="field" property="field" />
+        <id column="id" property="id" />
+    </resultMap>
+
+    <sql id="WsnMethaneColumns">
+        ware_id,
+        obj_id,
+        methane_value,
+        rate,
+        state,
+        create_time,
+        field,
+        id
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into wsn_methane (
+        ware_id,
+        obj_id,
+        methane_value,
+        rate,
+        state,
+        create_time,
+        field,
+        )
+        values (
+        #{wareId},
+        #{objId},
+        #{methaneValue},
+        #{rate},
+        #{state},
+        #{createTime},
+        #{field},
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_methane (
+        ware_id,
+        obj_id,
+        methane_value,
+        rate,
+        state,
+        create_time,
+        field,
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.wareId},
+            #{item.objId},
+            #{item.methaneValue},
+            #{item.rate},
+            #{item.state},
+            #{item.createTime},
+            #{item.field},
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_methane
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_methane
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_methane
+        <set>
+            <if test="wareId != null">
+                ware_id = #{wareId},
+            </if>
+            <if test="objId != null">
+                obj_id = #{objId},
+            </if>
+            <if test="methaneValue != null">
+                methane_value = #{methaneValue},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="field != null">
+                field = #{field},
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnMethaneResultMap">
+        select
+        <include refid="WsnMethaneColumns" />
+        from wsn_methane
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="WsnMethaneResultMap">
+        select
+        <include refid="WsnMethaneColumns" />
+        from wsn_methane
+        <where>
+            <if test="wareId != null and wareId != ''">
+                ware_id = #{wareId}
+            </if>
+            <if test="objId != null and objId != ''">
+                and obj_id = #{objId}
+            </if>
+            <if test="methaneValue != null and methaneValue != ''">
+                and methane_value = #{methaneValue}
+            </if>
+            <if test="rate != null and rate != ''">
+                and rate = #{rate}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="field != null and field != ''">
+                and field = #{field}
+            </if>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnMethaneResultMap">
+        select
+        <include refid="WsnMethaneColumns" />
+        from wsn_methane
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

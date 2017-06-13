@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.device.WsnMonitorObjMapper">
+
+    <resultMap id="WsnMonitorObjResultMap" type="com.ai.mnt.model.device.WsnMonitorObj">
+        <id column="monitor_obj_id" property="monitorObjId" />
+        <result column="monitor_obj_name" property="monitorObjName" />
+        <result column="monitor_obj_place" property="monitorObjPlace" />
+        <result column="monitor_obj_content" property="monitorObjContent" />
+        <result column="remark" property="remark" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_date" property="modifyDate" />
+    </resultMap>
+
+    <sql id="WsnMonitorObjColumns">
+        monitor_obj_id,
+        monitor_obj_name,
+        monitor_obj_place,
+        monitor_obj_content,
+        remark,
+        modifier,
+        modify_date
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="monitorObjId">
+        insert into wsn_monitor_obj (
+        monitor_obj_name,
+        monitor_obj_place,
+        monitor_obj_content,
+        remark,
+        modifier,
+        modify_date
+        )
+        values (
+        #{monitorObjName},
+        #{monitorObjPlace},
+        #{monitorObjContent},
+        #{remark},
+        #{modifier},
+        #{modifyDate}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_monitor_obj (
+        monitor_obj_name,
+        monitor_obj_place,
+        monitor_obj_content,
+        remark,
+        modifier,
+        modify_date
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.monitorObjName},
+            #{item.monitorObjPlace},
+            #{item.monitorObjContent},
+            #{item.remark},
+            #{item.modifier},
+            #{item.modifyDate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_monitor_obj
+        where
+        monitor_obj_id = #{monitorObjId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_monitor_obj
+        where monitor_obj_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_monitor_obj
+        <set>
+            <if test="monitorObjName != null">
+                monitor_obj_name = #{monitorObjName},
+            </if>
+            <if test="monitorObjPlace != null">
+                monitor_obj_place = #{monitorObjPlace},
+            </if>
+            <if test="monitorObjContent != null">
+                monitor_obj_content = #{monitorObjContent},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate}
+            </if>
+        </set>
+        where
+        monitor_obj_id = #{monitorObjId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnMonitorObjResultMap">
+        select
+        <include refid="WsnMonitorObjColumns" />
+        from wsn_monitor_obj
+        where monitor_obj_id = #{monitorObjId}
+    </select>
+
+    <select id="findList" resultMap="WsnMonitorObjResultMap">
+        select
+        <include refid="WsnMonitorObjColumns" />
+        from wsn_monitor_obj
+        <where>
+            <if test="monitorObjId != null">
+                monitor_obj_id = #{monitorObjId}
+            </if>
+            <if test="monitorObjName != null and monitorObjName != ''">
+                and monitor_obj_name = #{monitorObjName}
+            </if>
+            <if test="monitorObjPlace != null and monitorObjPlace != ''">
+                and monitor_obj_place = #{monitorObjPlace}
+            </if>
+            <if test="monitorObjContent != null and monitorObjContent != ''">
+                and monitor_obj_content = #{monitorObjContent}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="modifier != null and modifier != ''">
+                and modifier = #{modifier}
+            </if>
+            <if test="modifyDate != null">
+                and modify_date = #{modifyDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnMonitorObjResultMap">
+        select
+        <include refid="WsnMonitorObjColumns" />
+        from wsn_monitor_obj
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

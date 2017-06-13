@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.device.WsnHardwareInfoMapper">
+
+    <resultMap id="WsnHardwareInfoResultMap" type="com.ai.mnt.model.device.WsnHardwareInfo">
+        <id column="ware_id" property="wareId" />
+        <result column="ware_name" property="wareName" />
+        <result column="type_id" property="typeId" />
+        <result column="obj_id" property="objId" />
+        <result column="ware_key" property="wareKey" />
+        <result column="ware_info" property="wareInfo" />
+        <result column="update_time" property="updateTime" />
+        <result column="state" property="state" />
+        <result column="remark1" property="remark1" />
+        <result column="remark2" property="remark2" />
+        <result column="info_one" property="infoOne" />
+        <result column="info_two" property="infoTwo" />
+        <result column="info_three" property="infoThree" />
+        <result column="info_four" property="infoFour" />
+        <result column="info_five" property="infoFive" />
+        <result column="net_ip" property="netIp" />
+        <result column="rfid_id" property="rfidId" />
+        <result column="employee_id" property="employeeId" />
+    </resultMap>
+
+    <sql id="WsnHardwareInfoColumns">
+        ware_id,
+        ware_name,
+        type_id,
+        obj_id,
+        ware_key,
+        ware_info,
+        update_time,
+        state,
+        remark1,
+        remark2,
+        info_one,
+        info_two,
+        info_three,
+        info_four,
+        info_five,
+        net_ip,
+        rfid_id,
+        employee_id
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="wareId">
+        insert into wsn_hardware_info (
+        ware_name,
+        type_id,
+        obj_id,
+        ware_key,
+        ware_info,
+        update_time,
+        state,
+        remark1,
+        remark2,
+        info_one,
+        info_two,
+        info_three,
+        info_four,
+        info_five,
+        net_ip,
+        rfid_id,
+        employee_id
+        )
+        values (
+        #{wareName},
+        #{typeId},
+        #{objId},
+        #{wareKey},
+        #{wareInfo},
+        #{updateTime},
+        #{state},
+        #{remark1},
+        #{remark2},
+        #{infoOne},
+        #{infoTwo},
+        #{infoThree},
+        #{infoFour},
+        #{infoFive},
+        #{netIp},
+        #{rfidId},
+        #{employeeId}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_hardware_info (
+        ware_name,
+        type_id,
+        obj_id,
+        ware_key,
+        ware_info,
+        update_time,
+        state,
+        remark1,
+        remark2,
+        info_one,
+        info_two,
+        info_three,
+        info_four,
+        info_five,
+        net_ip,
+        rfid_id,
+        employee_id
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.wareName},
+            #{item.typeId},
+            #{item.objId},
+            #{item.wareKey},
+            #{item.wareInfo},
+            #{item.updateTime},
+            #{item.state},
+            #{item.remark1},
+            #{item.remark2},
+            #{item.infoOne},
+            #{item.infoTwo},
+            #{item.infoThree},
+            #{item.infoFour},
+            #{item.infoFive},
+            #{item.netIp},
+            #{item.rfidId},
+            #{item.employeeId}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_hardware_info
+        where
+        ware_id = #{wareId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_hardware_info
+        where ware_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_hardware_info
+        <set>
+            <if test="wareName != null">
+                ware_name = #{wareName},
+            </if>
+            <if test="typeId != null">
+                type_id = #{typeId},
+            </if>
+            <if test="objId != null">
+                obj_id = #{objId},
+            </if>
+            <if test="wareKey != null">
+                ware_key = #{wareKey},
+            </if>
+            <if test="wareInfo != null">
+                ware_info = #{wareInfo},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="remark1 != null">
+                remark1 = #{remark1},
+            </if>
+            <if test="remark2 != null">
+                remark2 = #{remark2},
+            </if>
+            <if test="infoOne != null">
+                info_one = #{infoOne},
+            </if>
+            <if test="infoTwo != null">
+                info_two = #{infoTwo},
+            </if>
+            <if test="infoThree != null">
+                info_three = #{infoThree},
+            </if>
+            <if test="infoFour != null">
+                info_four = #{infoFour},
+            </if>
+            <if test="infoFive != null">
+                info_five = #{infoFive},
+            </if>
+            <if test="netIp != null">
+                net_ip = #{netIp},
+            </if>
+            <if test="rfidId != null">
+                rfid_id = #{rfidId},
+            </if>
+            <if test="employeeId != null">
+                employee_id = #{employeeId}
+            </if>
+        </set>
+        where
+        ware_id = #{wareId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnHardwareInfoResultMap">
+        select
+        <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+        where ware_id = #{wareId}
+    </select>
+
+    <select id="findList" resultMap="WsnHardwareInfoResultMap">
+        select
+        <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+        <where>
+            <if test="wareId != null and wareId != ''">
+                ware_id = #{wareId}
+            </if>
+            <if test="wareName != null and wareName != ''">
+                and ware_name = #{wareName}
+            </if>
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="objId != null and objId != ''">
+                and obj_id = #{objId}
+            </if>
+            <if test="wareKey != null and wareKey != ''">
+                and ware_key = #{wareKey}
+            </if>
+            <if test="wareInfo != null and wareInfo != ''">
+                and ware_info = #{wareInfo}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                and remark1 = #{remark1}
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                and remark2 = #{remark2}
+            </if>
+            <if test="infoOne != null and infoOne != ''">
+                and info_one = #{infoOne}
+            </if>
+            <if test="infoTwo != null and infoTwo != ''">
+                and info_two = #{infoTwo}
+            </if>
+            <if test="infoThree != null and infoThree != ''">
+                and info_three = #{infoThree}
+            </if>
+            <if test="infoFour != null and infoFour != ''">
+                and info_four = #{infoFour}
+            </if>
+            <if test="infoFive != null and infoFive != ''">
+                and info_five = #{infoFive}
+            </if>
+            <if test="netIp != null and netIp != ''">
+                and net_ip = #{netIp}
+            </if>
+            <if test="rfidId != null">
+                and rfid_id = #{rfidId}
+            </if>
+            <if test="employeeId != null">
+                and employee_id = #{employeeId}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnHardwareInfoResultMap">
+        select
+        <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

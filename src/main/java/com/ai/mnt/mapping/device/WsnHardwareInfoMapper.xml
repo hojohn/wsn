@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.device.WsnHardwareInfoMapper">
+
+    <resultMap id="WsnHardwareInfoResultMap1" type="com.ai.mnt.model.device.WsnHardwareInfo">
+        <id column="ware_id" property="wareId" />
+        <result column="ware_name" property="wareName" />
+        <result column="type_id" property="typeId" />
+        <result column="obj_id" property="objId" />
+        <result column="ware_key" property="wareKey" />
+        <result column="ware_info" property="wareInfo" />
+        <result column="update_time" property="updateTime" />
+        <result column="state" property="state" />
+        <result column="sample_data" property="remark1" />
+        <result column="remark2" property="remark2" />
+        <result column="info_one" property="infoOne" />
+        <result column="port" property="infoTwo" />
+        <result column="metric_data" property="infoThree" />
+        <result column="alrm_data" property="infoFour" />
+        <result column="info_five" property="infoFive" />
+        <result column="net_ip" property="netIp" />
+        <result column="rfid_id" property="rfidId" />
+        <result column="employee_id" property="employeeId" />
+        
+    </resultMap>
+
+
+   <!-- <resultMap id="WsnHardwareInfoResultMap" type="com.ai.mnt.model.device.WsnHardwareInfo">
+        <id column="ware_id" property="wareId" />
+        <result column="ware_name" property="wareName" />
+        <result column="type_id" property="typeId" />
+        <result column="obj_id" property="objId" />
+        <result column="ware_key" property="wareKey" />
+        <result column="ware_info" property="wareInfo" />
+        <result column="update_time" property="updateTime" />
+        <result column="state" property="state" />
+        <result column="remark1" property="remark1" />
+        <result column="remark2" property="remark2" />
+        <result column="info_one"  property="infoOne" />
+        <result column="info_two"   property="infoTwo" />
+        <result column="info_three"  property="infoThree" />
+       <result column= "info_four"   property="infoFour" />
+       <result column="info_five"   property="infoFive" />
+        <association property="wsnGeteway" javaType="com.ai.mnt.model.device.WsnGeteway" resultMap="WsnGetewayResultMap"/>
+    </resultMap>
+    
+    <resultMap id="WsnGetewayResultMap" type="com.ai.mnt.model.device.WsnGeteway">
+        <id column="gateway_id" property="gatewayId" />
+        <result column="gateway_name" property="gatewayName" />
+        <result column="gateway_ip" property="gatewayIp" />
+      
+    </resultMap>  -->
+
+    <sql id="WsnHardwareInfoColumns">
+        ware_id,
+        ware_name,
+        type_id,
+        obj_id,
+        ware_key,
+        ware_info,
+        update_time,
+        state,
+        sample_data,
+        remark2,
+        info_one,
+        port,
+        metric_data,
+        alrm_data,
+        info_five,
+        net_ip,
+        rfid_id,
+        employee_id
+        
+    </sql>
+<!---->
+    <insert id="save" useGeneratedKeys="true" keyProperty="wareId">
+        insert into wsn_hardware_info (
+        ware_id,
+        ware_name,
+        type_id,
+        obj_id,
+        ware_key,
+        ware_info,
+        update_time,
+        state,
+        sample_data,
+        remark2,
+        net_ip,
+        info_one,
+        port,
+        metric_data,
+        alrm_data
+        
+        )
+        values (
+        #{wareId},
+        #{wareName},
+        #{typeId},
+        #{objId},
+        #{wareKey},
+        #{wareInfo},
+        #{updateTime},
+        #{state},
+        #{remark1},
+        #{remark2},
+        #{netIp},
+        #{infoOne},
+        #{infoTwo},
+        #{infoThree},
+        #{infoFour}
+        )
+    </insert>
+
+   <!-- 调取移动节点-->
+   <select id="findDubug" resultType="java.util.HashMap">
+        select a.ware_id,a.net_ip,a.obj_id,a.ware_info from 
+        wsn_hardware_info a 
+        WHERE 
+        a.type_id=#{i}
+    </select>
+
+    <update id="updateByPrimaryKey">
+        update wsn_hardware_info
+        <set>
+            <if test="wareName != null">
+                ware_name = #{wareName},
+            </if>
+            <if test="typeId != null">
+                type_id = #{typeId},
+            </if>
+            <if test="objId != null">
+                obj_id = #{objId},
+            </if>
+            <if test="wareKey != null">
+                ware_key = #{wareKey},
+            </if>
+            <if test="wareInfo != null">
+                ware_info = #{wareInfo},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="remark1 != null">
+                sample_data = #{remark1},
+            </if>
+            <if test="remark2 != null">
+                remark2 = #{remark2},
+            </if>
+            <if test="infoOne != null">
+                info_one = #{infoOne},
+            </if>
+            <if test="infoTwo != null">
+                port = #{infoTwo},
+            </if>
+            <if test="infoThree != null">
+                metric_data = #{infoThree},
+            </if>
+            <if test="infoFour != null">
+                alrm_data = #{infoFour},
+            </if>
+            <if test="infoFive != null">
+                info_five = #{infoFive},
+            </if>
+            <if test="netIp != null">
+                net_ip = #{netIp},
+            </if>
+            <if test="rfidId != null">
+                rfid_id = #{rfidId},
+            </if>
+            <if test="employeeId != null">
+                employee_id = #{employeeId}
+            </if>
+        </set>
+        where
+        ware_id = #{wareId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnHardwareInfoResultMap1">
+        select
+        <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+        where ware_id = #{wareId}
+    </select>
+    <!---->
+    <select id="findByPrimary" resultMap="WsnHardwareInfoResultMap1">
+        select
+        <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+        where ware_id = #{wareId}
+    </select>
+    
+    <!--查找监控对象下面多有的传感器 -->
+    <select id="findByRemark2" resultMap="WsnHardwareInfoResultMap1">
+        select
+        <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+        where obj_id = #{opt} and type_id = 1 
+    </select>
+    
+     <!--查找监控对象下面多有的传感器  这是监控对象的页面 -->
+    <select id="findListByInfo1" resultMap="WsnHardwareInfoResultMap1">
+        select
+        <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+        where obj_id = #{info1} and type_id = 1 
+    </select>
+<!--查找某个监控对象下的传感器 -->
+    <select id="findList" resultMap="WsnHardwareInfoResultMap1">
+        select
+        <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+        <where>
+        
+            <if test="typeId != null">
+                and type_id = #{typeId}
+            </if>
+            <if test="objId != null">
+                and obj_id = #{objId}
+            </if>
+            
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnHardwareInfoResultMap1">
+        select
+        <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+    </select>
+    <!--
+    <select id="findTxtByPrimaryKey" resultMap="WsnHardwareInfoResultMap"  >
+    	select
+    	   <include refid="WsnHardwareInfoColumns" />,
+    	    gateway_ip 
+    	from wsn_hardware_info t1 join wsn_geteway t2 on t1.geteway_id = t2.gateway_id 
+    	where ware_id = #{wareId}
+    </select>-->
+    <!--查找终端节点对应的传感器 -->
+    <select id="findListByInfo3" resultMap="WsnHardwareInfoResultMap1" >
+    	select 
+    	   <include refid="WsnHardwareInfoColumns" />
+    	from wsn_hardware_info
+    	where ware_id = #{wareId}
+    </select>
+    <!--查找终端对应的移动节点 -->
+    <select id="findListByInfo2" resultMap="WsnHardwareInfoResultMap1" >
+        select 
+           <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+        where info_two = #{infoThree}
+    </select>
+    <!--查找对象对应的传感器 -->
+    <select id="findSensorByType" resultMap="WsnHardwareInfoResultMap1" >
+        select 
+           <include refid="WsnHardwareInfoColumns" />
+        from wsn_hardware_info
+        where type_id = #{i}
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

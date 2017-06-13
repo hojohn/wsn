@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.sec.FxdjpgzbtxMapper">
+
+    <resultMap id="FxdjpgzbtxResultMap" type="com.ai.mnt.model.sec.Fxdjpgzbtx">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="wxwlbzf" property="wxwlbzf" />
+        <result column="gycsbzf" property="gycsbzf" />
+        <result column="aqkzbzf" property="aqkzbzf" />
+        <result column="wlwxxbzf" property="wlwxxbzf" />
+        <result column="wlwxxqz" property="wlwxxqz" />
+        <result column="rlwxxbzf" property="rlwxxbzf" />
+        <result column="rlwxxqz" property="rlwxxqz" />
+        <result column="bzwxxbz" property="bzwxxbz" />
+        <result column="bzwxxqz" property="bzwxxqz" />
+        <result column="wzdhxbzf" property="wzdhxbzf" />
+        <result column="wzdhxqz" property="wzdhxqz" />
+        <result column="wzfsxbzf" property="wzfsxbzf" />
+        <result column="wzfsxqz" property="wzfsxqz" />
+        <result column="fyrxsbzf" property="fyrxsbzf" />
+        <result column="fyrxsqz" property="fyrxsqz" />
+        <result column="clbzf" property="clbzf" />
+        <result column="clqz" property="clqz" />
+        <result column="wdbzf" property="wdbzf" />
+        <result column="wdqz" property="wdqz" />
+        <result column="ylbzf" property="ylbzf" />
+        <result column="ylqz" property="ylqz" />
+        <result column="llbzf" property="llbzf" />
+        <result column="llqz" property="llqz" />
+        <result column="jbslbzf" property="jbslbzf" />
+        <result column="jbslqz" property="jbslqz" />
+        <result column="hylbzf" property="hylbzf" />
+        <result column="hylqz" property="hylqz" />
+        <result column="qtcsbzf" property="qtcsbzf" />
+        <result column="qtcsqz" property="qtcsqz" />
+        <result column="wdcsbjbzf" property="wdcsbjbzf" />
+        <result column="wdcsbjqz" property="wdcsbjqz" />
+        <result column="jlblkzbzf" property="jlblkzbzf" />
+        <result column="jlblkzqz" property="jlblkzqz" />
+        <result column="jjlqxtbzf" property="jjlqxtbzf" />
+        <result column="jjlqxtqz" property="jjlqxtqz" />
+        <result column="jbwdkzbzf" property="jbwdkzbzf" />
+        <result column="jbwdkzqz" property="jbwdkzqz" />
+        <result column="aqxfxtbzf" property="aqxfxtbzf" />
+        <result column="aqxfxtqz" property="aqxfxtqz" />
+        <result column="krydqtjcbzf" property="krydqtjcbzf" />
+        <result column="krydqtjcqz" property="krydqtjcqz" />
+        <result column="jjtczzbzf" property="jjtczzbzf" />
+        <result column="jjtczzqz" property="jjtczzqz" />
+        <result column="qtaqkzbzf" property="qtaqkzbzf" />
+        <result column="qtaqkzqz" property="qtaqkzqz" />
+    </resultMap>
+
+    <sql id="FxdjpgzbtxColumns">
+        name,
+        wxwlbzf,
+        gycsbzf,
+        aqkzbzf,
+        id,
+        wlwxxbzf,
+        wlwxxqz,
+        rlwxxbzf,
+        rlwxxqz,
+        bzwxxbz,
+        bzwxxqz,
+        wzdhxbzf,
+        wzdhxqz,
+        wzfsxbzf,
+        wzfsxqz,
+        fyrxsbzf,
+        fyrxsqz,
+        clbzf,
+        clqz,
+        wdbzf,
+        wdqz,
+        ylbzf,
+        ylqz,
+        llbzf,
+        llqz,
+        jbslbzf,
+        jbslqz,
+        hylbzf,
+        hylqz,
+        qtcsbzf,
+        qtcsqz,
+        wdcsbjbzf,
+        wdcsbjqz,
+        jlblkzbzf,
+        jlblkzqz,
+        jjlqxtbzf,
+        jjlqxtqz,
+        jbwdkzbzf,
+        jbwdkzqz,
+        aqxfxtbzf,
+        aqxfxtqz,
+        krydqtjcbzf,
+        krydqtjcqz,
+        jjtczzbzf,
+        jjtczzqz,
+        qtaqkzbzf,
+        qtaqkzqz
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into fxdjpgzbtx (
+        name,
+        wxwlbzf,
+        gycsbzf,
+        aqkzbzf,
+        wlwxxbzf,
+        wlwxxqz,
+        rlwxxbzf,
+        rlwxxqz,
+        bzwxxbz,
+        bzwxxqz,
+        wzdhxbzf,
+        wzdhxqz,
+        wzfsxbzf,
+        wzfsxqz,
+        fyrxsbzf,
+        fyrxsqz,
+        clbzf,
+        clqz,
+        wdbzf,
+        wdqz,
+        ylbzf,
+        ylqz,
+        llbzf,
+        llqz,
+        jbslbzf,
+        jbslqz,
+        hylbzf,
+        hylqz,
+        qtcsbzf,
+        qtcsqz,
+        wdcsbjbzf,
+        wdcsbjqz,
+        jlblkzbzf,
+        jlblkzqz,
+        jjlqxtbzf,
+        jjlqxtqz,
+        jbwdkzbzf,
+        jbwdkzqz,
+        aqxfxtbzf,
+        aqxfxtqz,
+        krydqtjcbzf,
+        krydqtjcqz,
+        jjtczzbzf,
+        jjtczzqz,
+        qtaqkzbzf,
+        qtaqkzqz
+        )
+        values (
+        #{name},
+        #{wxwlbzf},
+        #{gycsbzf},
+        #{aqkzbzf},
+        #{wlwxxbzf},
+        #{wlwxxqz},
+        #{rlwxxbzf},
+        #{rlwxxqz},
+        #{bzwxxbz},
+        #{bzwxxqz},
+        #{wzdhxbzf},
+        #{wzdhxqz},
+        #{wzfsxbzf},
+        #{wzfsxqz},
+        #{fyrxsbzf},
+        #{fyrxsqz},
+        #{clbzf},
+        #{clqz},
+        #{wdbzf},
+        #{wdqz},
+        #{ylbzf},
+        #{ylqz},
+        #{llbzf},
+        #{llqz},
+        #{jbslbzf},
+        #{jbslqz},
+        #{hylbzf},
+        #{hylqz},
+        #{qtcsbzf},
+        #{qtcsqz},
+        #{wdcsbjbzf},
+        #{wdcsbjqz},
+        #{jlblkzbzf},
+        #{jlblkzqz},
+        #{jjlqxtbzf},
+        #{jjlqxtqz},
+        #{jbwdkzbzf},
+        #{jbwdkzqz},
+        #{aqxfxtbzf},
+        #{aqxfxtqz},
+        #{krydqtjcbzf},
+        #{krydqtjcqz},
+        #{jjtczzbzf},
+        #{jjtczzqz},
+        #{qtaqkzbzf},
+        #{qtaqkzqz}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into fxdjpgzbtx (
+        name,
+        wxwlbzf,
+        gycsbzf,
+        aqkzbzf,
+        wlwxxbzf,
+        wlwxxqz,
+        rlwxxbzf,
+        rlwxxqz,
+        bzwxxbz,
+        bzwxxqz,
+        wzdhxbzf,
+        wzdhxqz,
+        wzfsxbzf,
+        wzfsxqz,
+        fyrxsbzf,
+        fyrxsqz,
+        clbzf,
+        clqz,
+        wdbzf,
+        wdqz,
+        ylbzf,
+        ylqz,
+        llbzf,
+        llqz,
+        jbslbzf,
+        jbslqz,
+        hylbzf,
+        hylqz,
+        qtcsbzf,
+        qtcsqz,
+        wdcsbjbzf,
+        wdcsbjqz,
+        jlblkzbzf,
+        jlblkzqz,
+        jjlqxtbzf,
+        jjlqxtqz,
+        jbwdkzbzf,
+        jbwdkzqz,
+        aqxfxtbzf,
+        aqxfxtqz,
+        krydqtjcbzf,
+        krydqtjcqz,
+        jjtczzbzf,
+        jjtczzqz,
+        qtaqkzbzf,
+        qtaqkzqz
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.name},
+            #{item.wxwlbzf},
+            #{item.gycsbzf},
+            #{item.aqkzbzf},
+            #{item.wlwxxbzf},
+            #{item.wlwxxqz},
+            #{item.rlwxxbzf},
+            #{item.rlwxxqz},
+            #{item.bzwxxbz},
+            #{item.bzwxxqz},
+            #{item.wzdhxbzf},
+            #{item.wzdhxqz},
+            #{item.wzfsxbzf},
+            #{item.wzfsxqz},
+            #{item.fyrxsbzf},
+            #{item.fyrxsqz},
+            #{item.clbzf},
+            #{item.clqz},
+            #{item.wdbzf},
+            #{item.wdqz},
+            #{item.ylbzf},
+            #{item.ylqz},
+            #{item.llbzf},
+            #{item.llqz},
+            #{item.jbslbzf},
+            #{item.jbslqz},
+            #{item.hylbzf},
+            #{item.hylqz},
+            #{item.qtcsbzf},
+            #{item.qtcsqz},
+            #{item.wdcsbjbzf},
+            #{item.wdcsbjqz},
+            #{item.jlblkzbzf},
+            #{item.jlblkzqz},
+            #{item.jjlqxtbzf},
+            #{item.jjlqxtqz},
+            #{item.jbwdkzbzf},
+            #{item.jbwdkzqz},
+            #{item.aqxfxtbzf},
+            #{item.aqxfxtqz},
+            #{item.krydqtjcbzf},
+            #{item.krydqtjcqz},
+            #{item.jjtczzbzf},
+            #{item.jjtczzqz},
+            #{item.qtaqkzbzf},
+            #{item.qtaqkzqz}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from fxdjpgzbtx
+        where
+        id = #{id}
+    </delete>
+
+    <delete id="deleteList">
+        delete from fxdjpgzbtx
+        where id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update fxdjpgzbtx
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="wxwlbzf != null">
+                wxwlbzf = #{wxwlbzf},
+            </if>
+            <if test="gycsbzf != null">
+                gycsbzf = #{gycsbzf},
+            </if>
+            <if test="aqkzbzf != null">
+                aqkzbzf = #{aqkzbzf},
+            </if>
+            <if test="wlwxxbzf != null">
+                wlwxxbzf = #{wlwxxbzf},
+            </if>
+            <if test="wlwxxqz != null">
+                wlwxxqz = #{wlwxxqz},
+            </if>
+            <if test="rlwxxbzf != null">
+                rlwxxbzf = #{rlwxxbzf},
+            </if>
+            <if test="rlwxxqz != null">
+                rlwxxqz = #{rlwxxqz},
+            </if>
+            <if test="bzwxxbz != null">
+                bzwxxbz = #{bzwxxbz},
+            </if>
+            <if test="bzwxxqz != null">
+                bzwxxqz = #{bzwxxqz},
+            </if>
+            <if test="wzdhxbzf != null">
+                wzdhxbzf = #{wzdhxbzf},
+            </if>
+            <if test="wzdhxqz != null">
+                wzdhxqz = #{wzdhxqz},
+            </if>
+            <if test="wzfsxbzf != null">
+                wzfsxbzf = #{wzfsxbzf},
+            </if>
+            <if test="wzfsxqz != null">
+                wzfsxqz = #{wzfsxqz},
+            </if>
+            <if test="fyrxsbzf != null">
+                fyrxsbzf = #{fyrxsbzf},
+            </if>
+            <if test="fyrxsqz != null">
+                fyrxsqz = #{fyrxsqz},
+            </if>
+            <if test="clbzf != null">
+                clbzf = #{clbzf},
+            </if>
+            <if test="clqz != null">
+                clqz = #{clqz},
+            </if>
+            <if test="wdbzf != null">
+                wdbzf = #{wdbzf},
+            </if>
+            <if test="wdqz != null">
+                wdqz = #{wdqz},
+            </if>
+            <if test="ylbzf != null">
+                ylbzf = #{ylbzf},
+            </if>
+            <if test="ylqz != null">
+                ylqz = #{ylqz},
+            </if>
+            <if test="llbzf != null">
+                llbzf = #{llbzf},
+            </if>
+            <if test="llqz != null">
+                llqz = #{llqz},
+            </if>
+            <if test="jbslbzf != null">
+                jbslbzf = #{jbslbzf},
+            </if>
+            <if test="jbslqz != null">
+                jbslqz = #{jbslqz},
+            </if>
+            <if test="hylbzf != null">
+                hylbzf = #{hylbzf},
+            </if>
+            <if test="hylqz != null">
+                hylqz = #{hylqz},
+            </if>
+            <if test="qtcsbzf != null">
+                qtcsbzf = #{qtcsbzf},
+            </if>
+            <if test="qtcsqz != null">
+                qtcsqz = #{qtcsqz},
+            </if>
+            <if test="wdcsbjbzf != null">
+                wdcsbjbzf = #{wdcsbjbzf},
+            </if>
+            <if test="wdcsbjqz != null">
+                wdcsbjqz = #{wdcsbjqz},
+            </if>
+            <if test="jlblkzbzf != null">
+                jlblkzbzf = #{jlblkzbzf},
+            </if>
+            <if test="jlblkzqz != null">
+                jlblkzqz = #{jlblkzqz},
+            </if>
+            <if test="jjlqxtbzf != null">
+                jjlqxtbzf = #{jjlqxtbzf},
+            </if>
+            <if test="jjlqxtqz != null">
+                jjlqxtqz = #{jjlqxtqz},
+            </if>
+            <if test="jbwdkzbzf != null">
+                jbwdkzbzf = #{jbwdkzbzf},
+            </if>
+            <if test="jbwdkzqz != null">
+                jbwdkzqz = #{jbwdkzqz},
+            </if>
+            <if test="aqxfxtbzf != null">
+                aqxfxtbzf = #{aqxfxtbzf},
+            </if>
+            <if test="aqxfxtqz != null">
+                aqxfxtqz = #{aqxfxtqz},
+            </if>
+            <if test="krydqtjcbzf != null">
+                krydqtjcbzf = #{krydqtjcbzf},
+            </if>
+            <if test="krydqtjcqz != null">
+                krydqtjcqz = #{krydqtjcqz},
+            </if>
+            <if test="jjtczzbzf != null">
+                jjtczzbzf = #{jjtczzbzf},
+            </if>
+            <if test="jjtczzqz != null">
+                jjtczzqz = #{jjtczzqz},
+            </if>
+            <if test="qtaqkzbzf != null">
+                qtaqkzbzf = #{qtaqkzbzf},
+            </if>
+            <if test="qtaqkzqz != null">
+                qtaqkzqz = #{qtaqkzqz}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="FxdjpgzbtxResultMap">
+        select
+        <include refid="FxdjpgzbtxColumns" />
+        from fxdjpgzbtx
+        where id = #{id}
+    </select>
+
+    <select id="findList" resultMap="FxdjpgzbtxResultMap">
+        select
+        <include refid="FxdjpgzbtxColumns" />
+        from fxdjpgzbtx
+        <where>
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+            <if test="wxwlbzf != null and wxwlbzf != ''">
+                and wxwlbzf = #{wxwlbzf}
+            </if>
+            <if test="gycsbzf != null and gycsbzf != ''">
+                and gycsbzf = #{gycsbzf}
+            </if>
+            <if test="aqkzbzf != null and aqkzbzf != ''">
+                and aqkzbzf = #{aqkzbzf}
+            </if>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="wlwxxbzf != null and wlwxxbzf != ''">
+                and wlwxxbzf = #{wlwxxbzf}
+            </if>
+            <if test="wlwxxqz != null and wlwxxqz != ''">
+                and wlwxxqz = #{wlwxxqz}
+            </if>
+            <if test="rlwxxbzf != null and rlwxxbzf != ''">
+                and rlwxxbzf = #{rlwxxbzf}
+            </if>
+            <if test="rlwxxqz != null and rlwxxqz != ''">
+                and rlwxxqz = #{rlwxxqz}
+            </if>
+            <if test="bzwxxbz != null and bzwxxbz != ''">
+                and bzwxxbz = #{bzwxxbz}
+            </if>
+            <if test="bzwxxqz != null and bzwxxqz != ''">
+                and bzwxxqz = #{bzwxxqz}
+            </if>
+            <if test="wzdhxbzf != null and wzdhxbzf != ''">
+                and wzdhxbzf = #{wzdhxbzf}
+            </if>
+            <if test="wzdhxqz != null and wzdhxqz != ''">
+                and wzdhxqz = #{wzdhxqz}
+            </if>
+            <if test="wzfsxbzf != null and wzfsxbzf != ''">
+                and wzfsxbzf = #{wzfsxbzf}
+            </if>
+            <if test="wzfsxqz != null and wzfsxqz != ''">
+                and wzfsxqz = #{wzfsxqz}
+            </if>
+            <if test="fyrxsbzf != null and fyrxsbzf != ''">
+                and fyrxsbzf = #{fyrxsbzf}
+            </if>
+            <if test="fyrxsqz != null and fyrxsqz != ''">
+                and fyrxsqz = #{fyrxsqz}
+            </if>
+            <if test="clbzf != null and clbzf != ''">
+                and clbzf = #{clbzf}
+            </if>
+            <if test="clqz != null and clqz != ''">
+                and clqz = #{clqz}
+            </if>
+            <if test="wdbzf != null and wdbzf != ''">
+                and wdbzf = #{wdbzf}
+            </if>
+            <if test="wdqz != null and wdqz != ''">
+                and wdqz = #{wdqz}
+            </if>
+            <if test="ylbzf != null and ylbzf != ''">
+                and ylbzf = #{ylbzf}
+            </if>
+            <if test="ylqz != null and ylqz != ''">
+                and ylqz = #{ylqz}
+            </if>
+            <if test="llbzf != null and llbzf != ''">
+                and llbzf = #{llbzf}
+            </if>
+            <if test="llqz != null and llqz != ''">
+                and llqz = #{llqz}
+            </if>
+            <if test="jbslbzf != null and jbslbzf != ''">
+                and jbslbzf = #{jbslbzf}
+            </if>
+            <if test="jbslqz != null and jbslqz != ''">
+                and jbslqz = #{jbslqz}
+            </if>
+            <if test="hylbzf != null and hylbzf != ''">
+                and hylbzf = #{hylbzf}
+            </if>
+            <if test="hylqz != null and hylqz != ''">
+                and hylqz = #{hylqz}
+            </if>
+            <if test="qtcsbzf != null and qtcsbzf != ''">
+                and qtcsbzf = #{qtcsbzf}
+            </if>
+            <if test="qtcsqz != null and qtcsqz != ''">
+                and qtcsqz = #{qtcsqz}
+            </if>
+            <if test="wdcsbjbzf != null and wdcsbjbzf != ''">
+                and wdcsbjbzf = #{wdcsbjbzf}
+            </if>
+            <if test="wdcsbjqz != null and wdcsbjqz != ''">
+                and wdcsbjqz = #{wdcsbjqz}
+            </if>
+            <if test="jlblkzbzf != null and jlblkzbzf != ''">
+                and jlblkzbzf = #{jlblkzbzf}
+            </if>
+            <if test="jlblkzqz != null and jlblkzqz != ''">
+                and jlblkzqz = #{jlblkzqz}
+            </if>
+            <if test="jjlqxtbzf != null and jjlqxtbzf != ''">
+                and jjlqxtbzf = #{jjlqxtbzf}
+            </if>
+            <if test="jjlqxtqz != null and jjlqxtqz != ''">
+                and jjlqxtqz = #{jjlqxtqz}
+            </if>
+            <if test="jbwdkzbzf != null and jbwdkzbzf != ''">
+                and jbwdkzbzf = #{jbwdkzbzf}
+            </if>
+            <if test="jbwdkzqz != null and jbwdkzqz != ''">
+                and jbwdkzqz = #{jbwdkzqz}
+            </if>
+            <if test="aqxfxtbzf != null and aqxfxtbzf != ''">
+                and aqxfxtbzf = #{aqxfxtbzf}
+            </if>
+            <if test="aqxfxtqz != null and aqxfxtqz != ''">
+                and aqxfxtqz = #{aqxfxtqz}
+            </if>
+            <if test="krydqtjcbzf != null and krydqtjcbzf != ''">
+                and krydqtjcbzf = #{krydqtjcbzf}
+            </if>
+            <if test="krydqtjcqz != null and krydqtjcqz != ''">
+                and krydqtjcqz = #{krydqtjcqz}
+            </if>
+            <if test="jjtczzbzf != null and jjtczzbzf != ''">
+                and jjtczzbzf = #{jjtczzbzf}
+            </if>
+            <if test="jjtczzqz != null and jjtczzqz != ''">
+                and jjtczzqz = #{jjtczzqz}
+            </if>
+            <if test="qtaqkzbzf != null and qtaqkzbzf != ''">
+                and qtaqkzbzf = #{qtaqkzbzf}
+            </if>
+            <if test="qtaqkzqz != null and qtaqkzqz != ''">
+                and qtaqkzqz = #{qtaqkzqz}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="FxdjpgzbtxResultMap">
+        select
+        <include refid="FxdjpgzbtxColumns" />
+        from fxdjpgzbtx
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>

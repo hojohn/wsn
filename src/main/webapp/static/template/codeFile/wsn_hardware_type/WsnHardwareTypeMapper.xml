@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.mnt.persistence.device.WsnHardwareTypeMapper">
+
+    <resultMap id="WsnHardwareTypeResultMap" type="com.ai.mnt.model.device.WsnHardwareType">
+        <id column="type_id" property="typeId" />
+        <result column="type_name" property="typeName" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="WsnHardwareTypeColumns">
+        type_id,
+        type_name,
+        remark
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="typeId">
+        insert into wsn_hardware_type (
+        type_name,
+        remark
+        )
+        values (
+        #{typeName},
+        #{remark}
+        )
+    </insert>
+
+    <insert id="saveAll">
+        insert into wsn_hardware_type (
+        type_name,
+        remark
+        )
+        values
+        <foreach item="item" collection="list" separator=",">
+            (
+            #{item.typeName},
+            #{item.remark}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from wsn_hardware_type
+        where
+        type_id = #{typeId}
+    </delete>
+
+    <delete id="deleteList">
+        delete from wsn_hardware_type
+        where type_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByPrimaryKey">
+        update wsn_hardware_type
+        <set>
+            <if test="typeName != null">
+                type_name = #{typeName},
+            </if>
+            <if test="remark != null">
+                remark = #{remark}
+            </if>
+        </set>
+        where
+        type_id = #{typeId}
+    </update>
+
+    <select id="findByPrimaryKey" resultMap="WsnHardwareTypeResultMap">
+        select
+        <include refid="WsnHardwareTypeColumns" />
+        from wsn_hardware_type
+        where type_id = #{typeId}
+    </select>
+
+    <select id="findList" resultMap="WsnHardwareTypeResultMap">
+        select
+        <include refid="WsnHardwareTypeColumns" />
+        from wsn_hardware_type
+        <where>
+            <if test="typeId != null">
+                type_id = #{typeId}
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and type_name = #{typeName}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="WsnHardwareTypeResultMap">
+        select
+        <include refid="WsnHardwareTypeColumns" />
+        from wsn_hardware_type
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+</mapper>
